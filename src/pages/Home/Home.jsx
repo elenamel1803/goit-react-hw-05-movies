@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       try {
-        toggleState('isLoading');
+        setIsLoading(true);
         const data = await fetchTrendingMoviesApi();
         // if (!data.length) return;
         console.log('data :>> ', data);
@@ -18,21 +18,21 @@ const Home = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        toggleState('isLoading');
+        setIsLoading(false);
       }
     };
     fetchTrendingMovies();
   }, []);
 
-  const toggleState = key => {
-    switch (key) {
-      case 'isLoading':
-        setIsLoading(prevState => !prevState);
-        break;
-      default:
-        break;
-    }
-  };
+  // const toggleState = key => {
+  //   switch (key) {
+  //     case 'isLoading':
+  //       setIsLoading(prevState => !prevState);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   return (
     <>
