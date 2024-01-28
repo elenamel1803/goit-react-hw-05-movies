@@ -12,8 +12,8 @@ const Reviews = () => {
     const fetchMovieReviews = async () => {
       try {
         setIsLoading(true);
+        if (!movieId) return;
         const data = await fetchMovieReviewsApi(movieId);
-        // if (!data.length) return;
         console.log('data :>> ', data);
         setCriticReviews(data);
       } catch (error) {

@@ -12,8 +12,8 @@ const Cast = () => {
     const fetchMovieCast = async () => {
       try {
         setIsLoading(true);
+        if (!movieId) return;
         const data = await fetchMovieCastApi(movieId);
-        // if (!data.length) return;
         console.log('data :>> ', data);
         setActors(data);
       } catch (error) {

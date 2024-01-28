@@ -1,6 +1,6 @@
 import Loader from 'components/Loader/Loader';
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetailsApi } from 'services/RequestApi';
 
 const MovieDetails = () => {
@@ -8,13 +8,18 @@ const MovieDetails = () => {
   console.log('movieId :>> ', movieId);
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/');
+
+  const defaultImg =
+    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
         setIsLoading(true);
+        if (!movieId) return;
         const data = await fetchMovieDetailsApi(movieId);
-        // if (!data.length) return;
         console.log('data :>> ', data);
         setMovie(data);
       } catch (error) {
@@ -26,25 +31,31 @@ const MovieDetails = () => {
     fetchMovieDetails();
   }, [movieId]);
 
-  const { title, overview, genres, poster_path } = movie;
+  const { title, overview, genres, poster_path, vote_average } = movie;
 
   const genresList = genres
     ? genres.map(genre => genre.name).join(', ')
     : 'No genres available';
 
+  const popularity = Math.round(vote_average * 10);
+
   return (
     <>
       {isLoading && <Loader />}
+      <Link to={backLink.current}>Go back</Link>
       <div>
-        {poster_path && (
-          <img
-            src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-            alt={title}
-          />
-        )}
+        <img
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+              : defaultImg
+          }
+          alt={title}
+          width="300"
+        />
 
         <h1>{title}</h1>
-        <p>User Score: %</p>
+        <p>User Score: {popularity}%</p>
         <h2>Overview</h2>
         <p>{overview}</p>
         <h2>Genres</h2>
@@ -62,7 +73,9 @@ const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

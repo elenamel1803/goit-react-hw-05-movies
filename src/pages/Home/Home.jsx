@@ -1,11 +1,13 @@
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { fetchTrendingMoviesApi } from 'services/RequestApi';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
+  // const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -15,8 +17,12 @@ const Home = () => {
         // if (!data.length) return;
         console.log('data :>> ', data);
         setMovies(data);
+        // setError(false);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
+        // if (!error) {
+        toast.error('An error occurred while fetching reviews.');
+        // setError(true);
       } finally {
         setIsLoading(false);
       }
@@ -36,8 +42,8 @@ const Home = () => {
 
   return (
     <>
-      <h2>Trending today</h2>
       {isLoading && <Loader />}
+      <h2>Trending today</h2>
       <ul>
         {movies.map(({ id, title }) => (
           <li key={id}>
