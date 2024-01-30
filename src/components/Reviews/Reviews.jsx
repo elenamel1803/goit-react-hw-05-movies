@@ -9,12 +9,11 @@ const Reviews = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    if (!movieId) return;
     const fetchMovieReviews = async () => {
       try {
         setIsLoading(true);
-        if (!movieId) return;
         const data = await fetchMovieReviewsApi(movieId);
-        console.log('data :>> ', data);
         setCriticReviews(data);
       } catch (error) {
         console.error(error);
@@ -26,21 +25,20 @@ const Reviews = () => {
   }, [movieId]);
 
   const reviewsList =
-    criticReviews && criticReviews.length > 0
-      ? criticReviews.map(({ author, content, id }) => (
+    criticReviews && criticReviews.length > 0 ? (
+      <ul>
+        {criticReviews.map(({ author, content, id }) => (
           <li key={id}>
             <p>Author: {author}</p>
             <p>{content}</p>
           </li>
-        ))
-      : 'No reviews available';
+        ))}
+      </ul>
+    ) : (
+      <p>There is no reviews for this movie</p>
+    );
 
-  return (
-    <>
-      {isLoading && <Loader />}
-      <ul>{reviewsList}</ul>
-    </>
-  );
+  return <>{(isLoading && <Loader />) || reviewsList}</>;
 };
 
 export default Reviews;
