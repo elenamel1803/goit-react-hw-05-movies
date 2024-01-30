@@ -15,7 +15,6 @@ const Home = () => {
         setIsLoading(true);
         const data = await fetchTrendingMoviesApi();
         setMovies(data);
-        console.log('data :>> ', data);
       } catch (error) {
         errorMessage(error);
       } finally {

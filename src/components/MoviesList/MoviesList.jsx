@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { defaultImg, defaultPoster } from 'services/defaultImg';
+import { defaultImg } from 'services/defaultImg';
 import {
   Img,
   MovieItem,

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 export const MoviesGalleryList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 40px;
   justify-content: center;
+  max-width: 1200px;
+  margin: 28px auto;
 `;
 
 export const MovieItem = styled.li`
@@ -32,13 +34,10 @@ export const MovieLink = styled(Link)`
 export const Img = styled.img`
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-
-  /* max-width: 100%;
-  max-height: 100%;
-  display: block;
-  margin: auto;
+  max-width: 200px;
+  min-height: 300px;
   object-fit: cover;
-  object-position: center; */
+  object-position: center;
 `;
 
 export const Text = styled.p`

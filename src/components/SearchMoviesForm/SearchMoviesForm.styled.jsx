@@ -18,6 +18,7 @@ export const Button = styled.button`
   padding: 4px;
   width: 70px;
   height: 50px;
+  font-size: 18px;
   border: 0;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);

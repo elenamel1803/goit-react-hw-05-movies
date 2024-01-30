@@ -1,12 +1,17 @@
-import { Link } from 'react-router-dom';
-import { defaultImg, defaultPoster } from 'services/defaultImg';
+import { defaultImg } from 'services/defaultImg';
+import {
+  AddInfoWrap,
+  Img,
+  InfoBox,
+  InfoWrap,
+  Text,
+  LinkInfo,
+  List,
+} from './MovieInformation.styled';
 
 const MovieInformation = ({ movie }) => {
   const { title, release_date, overview, genres, poster_path, vote_average } =
     movie;
-
-  //   const defaultImg =
-  //     'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
   const poster =
     poster_path && poster_path.length > 0
@@ -24,29 +29,33 @@ const MovieInformation = ({ movie }) => {
 
   return (
     <>
-      <div>
-        <img src={poster} alt={title} width="300" />
-        <h1>
-          {title} ({releaseYear})
-        </h1>
-        <p>User Score: {popularity}%</p>
-        <h2>Overview</h2>
-        <p>{overview ? overview : 'There is no overview for this movie'}</p>
-        <h2>Genres</h2>
-        <p>{genresList}</p>
-      </div>
+      <InfoWrap>
+        <Img src={poster} alt={title} width="300" />
+        <InfoBox>
+          <h1>
+            {title} ({releaseYear})
+          </h1>
+          <Text>User Score: {popularity}%</Text>
+          <h2>Overview</h2>
+          <Text>
+            {overview ? overview : 'There is no overview for this movie'}
+          </Text>
+          <h2>Genres</h2>
+          <Text>{genresList}</Text>
+        </InfoBox>
+      </InfoWrap>
 
-      <div>
-        <h3>Additional information</h3>
-        <ul>
+      <AddInfoWrap>
+        <h2>Additional information</h2>
+        <List>
           <li>
-            <Link to="cast">Cast</Link>
+            <LinkInfo to="cast">Cast</LinkInfo>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <LinkInfo to="reviews">Reviews</LinkInfo>
           </li>
-        </ul>
-      </div>
+        </List>
+      </AddInfoWrap>
     </>
   );
 };

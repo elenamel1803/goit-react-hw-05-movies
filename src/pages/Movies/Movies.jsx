@@ -37,7 +37,7 @@ const Movies = () => {
   return (
     <>
       <SearchMoviesForm setSearchParams={setSearchParams} />
-      {isLoading ? <Loader /> : <MoviesList movies={movies} />}
+      {(isLoading && <Loader />) || <MoviesList movies={movies} />}
     </>
   );
 };
