@@ -13,7 +13,7 @@ export function infoEmptyMessage() {
 
 export function errorMessage() {
   Notiflix.Notify.failure(
-    'Sorry, there are no images matching your search query. Please try again.',
+    'Sorry, there are no movies matching your search query. Please try again.',
     notiflixParams
   );
 }
